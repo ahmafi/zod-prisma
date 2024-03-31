@@ -18,7 +18,7 @@ describe('types Package', () => {
 			documentation: ['@zod.max(64)', '@zod.min(1)'].join('\n'),
 		}
 
-		const constructor = getZodConstructor(field)
+		const constructor = getZodConstructor({ useDecimalJs: false }, field)
 
 		expect(constructor).toBe('z.string().array().max(64).min(1).nullable()')
 	})

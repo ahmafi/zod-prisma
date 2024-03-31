@@ -1,7 +1,9 @@
 import type { DMMF } from '@prisma/generator-helper'
+import { Config } from './config'
 import { computeCustomSchema, computeModifiers } from './docs'
 
 export const getZodConstructor = (
+	config: Config,
 	field: DMMF.Field,
 	getRelatedModelName = (name: string | DMMF.SchemaEnum | DMMF.OutputType | DMMF.SchemaArg) =>
 		name.toString()
@@ -27,7 +29,7 @@ export const getZodConstructor = (
 				zodType = 'z.number()'
 				break
 			case 'Decimal':
-				zodType = 'z.number()'
+				zodType = config.useDecimalJs ? 'decimalSchema' : 'z.number()'
 				break
 			case 'Json':
 				zodType = 'jsonSchema'
